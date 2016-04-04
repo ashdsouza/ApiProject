@@ -7,12 +7,6 @@ import net.sf.stackwrap4j.entities.Question;
 import net.sf.stackwrap4j.query.SearchQuery;
 //import com.google.code.stackexchange.client.query.StackExchangeApiQueryFactory;
 
-//http://stackoverflow.com/users/4033416/programmer
-//clientId = 6836
-//clientSecret = 7cL6PT3mXBDUb0DqDLpB0g((
-//key = XPfk3ExLE7WL*n0L56e5DQ(( 
-//
-
 /**
  * @author Ashley
  * Import StackWrap4j wrapper for StackOverFlow APIs
