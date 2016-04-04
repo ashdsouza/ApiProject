@@ -9,6 +9,7 @@ package com.twitter.api;
 */
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -44,14 +45,15 @@ public class TwitterTweets
   	
       Twitter twitter = new TwitterFactory(configSettings.build()).getInstance();	//get Twitter class Instance
       Query query = new Query(handle);	//use hashTag to get all tweets related to that
-      query.setCount(200);	//top 20
       query.setResultType(Query.ResultType.recent); //recent
       query.setLang("en"); //Language is English
-	  
+      int numberOfTweets = 20; //Set to 20 coz of Twitters Rate limiting
+      long lastID = Long.MAX_VALUE;
+      
       //make a query to search for all tweets having the handle "quickbooks API"
       try {
-    	     QueryResult result = twitter.search(query);
-	    	 tweets.addAll(result.getTweets());
+//    	     QueryResult result = twitter.search(query);
+//	    	 tweets.addAll(result.getTweets());
 //	    	 System.out.println("Gathered " + tweets.size() + " tweets"+"\n");	  
 //	    	 System.out.println("User = " + tweets.get(0).getUser() +"\n" +
 //	    			 " Text = " + tweets.get(0).getText() +"\n" +
@@ -66,6 +68,20 @@ public class TwitterTweets
 //	    			 " QuotedStatus = " + tweets.get(0).getQuotedStatusId() +"\n" +
 //	    			 " RetweetCount = " + tweets.get(0).getRetweetCount()
 //	    			 );
+	    	while (tweets.size () < numberOfTweets) {
+	        	  if (numberOfTweets - tweets.size() > 100)
+	        		  query.setCount(100);
+	        	  else 
+	    			  query.setCount(numberOfTweets - tweets.size());
+	        	  
+	    		  QueryResult result = twitter.search(query);
+	    		  tweets.addAll(result.getTweets());
+	    		  System.out.println("Gathered " + tweets.size() + " tweets");
+	    		  for (Status t: tweets) {
+	    			  if(t.getId() < lastID) lastID = t.getId();
+	    		  }
+	    		  query.setMaxId(lastID-1);
+	         }	
 	    	 issues = parseTweets(tweets);
 	     } catch (TwitterException e) {
 	    	 throw new TwitterException("Couldn't connect: " + e);
@@ -87,6 +103,7 @@ public class TwitterTweets
 	  int counter = 0;
 	  HashMap<Long, Issue> issues = new HashMap<Long, Issue>();
 	  for(Status tweet: tweets) {
+		  System.out.println(tweet.getText());
 		  if(checkIfStringContainsWords(tweet.getText())) {
 			  if(counter == maxUniqueTweets) break;
 			  if(!issues.containsKey(tweet.getUser().getId())) {
@@ -105,7 +122,8 @@ public class TwitterTweets
   public boolean checkIfStringContainsWords(String str) {
 	  boolean contains = false;
 	  for(int i=0; i<typesOfIssues.length; i++) {
-		  if(str.contains(typesOfIssues[i])) {
+		  String[] splited = str.split(" "); //split on space
+		  if(Arrays.asList(splited).contains(typesOfIssues[i])) {
 			  contains = true;
 		  }
 	  }
