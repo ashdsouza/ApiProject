@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.tweet.object.Issue;
+import com.domain.object.Issue;
 
 import twitter4j.Status;
 import twitter4j.TwitterException;
@@ -19,7 +19,7 @@ import twitter4j.TwitterException;
 /**
  * Servlet implementation class TwitterFeed
  */
-@WebServlet("/TwitterFeed")
+@WebServlet("/TwitterFeed/*")
 public class TwitterFeed extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	 private HashMap<Long, Issue> tweetsList = new HashMap<Long, Issue>();

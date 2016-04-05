@@ -1,4 +1,4 @@
-package com.tweet.object;
+package com.domain.object;
 
 public class Issue {
 	private Long userId;

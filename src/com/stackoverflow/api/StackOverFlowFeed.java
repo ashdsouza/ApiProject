@@ -29,7 +29,6 @@ public class StackOverFlowFeed extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		RequestDispatcher view = request.getRequestDispatcher("stackoverflow.jsp");
 		view.forward(request, response);
 		StackOverFlowQuestions feed = new StackOverFlowQuestions();

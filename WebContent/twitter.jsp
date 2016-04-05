@@ -16,12 +16,19 @@
   	<td>User Id</td>
   	<td>Name</td>
   	<td>Tweet (Bug or Feature)</td>
+  	<td></td>
   </tr>	
   <c:forEach items="${tweetsList}" var="entry">
     <tr>
       <td><c:out value="${entry.key}" /></td>	
       <td><c:out value="${entry.value.name}" /></td>
       <td><c:out value="${entry.value.text}" /></td>
+      <td>
+          <form action="EventTracker" method="get">
+                <input type="hidden" name="trackEntry" value="${entry.key}" />
+                <input type="submit" value="Track">
+          </form>
+        </td>
     </tr>
   </c:forEach>
 </table>

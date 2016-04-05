@@ -1,32 +1,25 @@
-package com.api.resource;
+package com.common.utils;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.twitter.api.TwitterTweets;
-
-import twitter4j.Status;
-import twitter4j.TwitterException;
+import com.domain.object.Issue;
 
 /**
- * Servlet implementation class HttpVerbs
+ * Servlet implementation class EventTracker
  */
-@WebServlet("/HttpVerbs")
-public class HttpVerbs extends HttpServlet {
+@WebServlet("/EventTracker")
+public class EventTracker extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private ArrayList<Status> tweetsList = new ArrayList<Status>();   
-	
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HttpVerbs() {
+    public EventTracker() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,19 +28,10 @@ public class HttpVerbs extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().print("Hello World");
-//		TwitterTweets tweets = new TwitterTweets();
-//		try {
-//			tweetsList = tweets.getTopTweets();
-//			request.setAttribute("tweetsList", tweetsList);
-//			request.setAttribute("count", tweetsList.size());
-//			RequestDispatcher view = request.getRequestDispatcher("twitter.jsp");
-//			view.forward(request, response);
-//		} catch (TwitterException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		// TODO Auto-generated method stubs
+		//TODO Get the userId and create a ticket with this bug or feature "tagging" the user
+		String issue = request.getParameter("trackEntry");
+		System.out.println("Issue to track = " + issue);
 	}
 
 	/**

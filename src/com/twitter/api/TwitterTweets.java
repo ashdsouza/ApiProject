@@ -3,7 +3,6 @@ package com.twitter.api;
 /**
 * 
 * @author Ashley
-* Import Twitter4j wrapper for Twitter APIs
 * Create a new app in Twitter to get all the necessary CustomerKey, CustomerSecret
 * This program will search for all the tweets with the handle provided.
 */
@@ -13,7 +12,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-import com.tweet.object.Issue;
+import com.domain.object.Issue;
 
 import twitter4j.Query;
 import twitter4j.QueryResult;
@@ -25,6 +24,7 @@ import twitter4j.conf.ConfigurationBuilder;
 
 public class TwitterTweets 
 {
+	//TODO: MOVE THESE TO CONFIG FILES
 	public static String consumerKeyStr = "cIVTBZ05p4JYyZkTCagF4NGfy";
 	public static String consumerSecretStr = "PHWjlot3W5T0FN9jO1HAOUagcxQzasPgObobevcjrJRZD7wJKf";
 	public static String accessTokenStr = "114999156-Uo7X6ClJjywcBQfDP6Jn3wWqnY8EmrvvtetkgVpt";
@@ -52,22 +52,6 @@ public class TwitterTweets
       
       //make a query to search for all tweets having the handle "quickbooks API"
       try {
-//    	     QueryResult result = twitter.search(query);
-//	    	 tweets.addAll(result.getTweets());
-//	    	 System.out.println("Gathered " + tweets.size() + " tweets"+"\n");	  
-//	    	 System.out.println("User = " + tweets.get(0).getUser() +"\n" +
-//	    			 " Text = " + tweets.get(0).getText() +"\n" +
-//	    			 " CurrentUserRetweetId = "  + tweets.get(0).getCurrentUserRetweetId() +"\n" +
-//	    			 " AccessLevel = " + tweets.get(0).getAccessLevel() +"\n" +
-//	    			 " FavouriteCount = " + tweets.get(0).getFavoriteCount() +"\n" +
-//	    			 " Id = " + tweets.get(0).getId() +"\n" +
-//	    			 " InReplyScreenName = " + tweets.get(0).getInReplyToScreenName() +"\n" +
-//	    			 " InReplyToStatusId = " + tweets.get(0).getInReplyToStatusId() +"\n" +
-//	    			 " InReplyToUserId = " + tweets.get(0).getInReplyToUserId() +"\n" +
-//	    			 " Lang = " + tweets.get(0).getLang() +"\n" +
-//	    			 " QuotedStatus = " + tweets.get(0).getQuotedStatusId() +"\n" +
-//	    			 " RetweetCount = " + tweets.get(0).getRetweetCount()
-//	    			 );
 	    	while (tweets.size () < numberOfTweets) {
 	        	  if (numberOfTweets - tweets.size() > 100)
 	        		  query.setCount(100);
@@ -76,7 +60,7 @@ public class TwitterTweets
 	        	  
 	    		  QueryResult result = twitter.search(query);
 	    		  tweets.addAll(result.getTweets());
-	    		  System.out.println("Gathered " + tweets.size() + " tweets");
+	    		  //System.out.println("Gathered " + tweets.size() + " tweets");
 	    		  for (Status t: tweets) {
 	    			  if(t.getId() < lastID) lastID = t.getId();
 	    		  }
@@ -103,7 +87,6 @@ public class TwitterTweets
 	  int counter = 0;
 	  HashMap<Long, Issue> issues = new HashMap<Long, Issue>();
 	  for(Status tweet: tweets) {
-		  System.out.println(tweet.getText());
 		  if(checkIfStringContainsWords(tweet.getText())) {
 			  if(counter == maxUniqueTweets) break;
 			  if(!issues.containsKey(tweet.getUser().getId())) {
@@ -119,6 +102,7 @@ public class TwitterTweets
 	  return issues;
   }
   
+  //check if Tweet has the selected keywords in them to identify an issue
   public boolean checkIfStringContainsWords(String str) {
 	  boolean contains = false;
 	  for(int i=0; i<typesOfIssues.length; i++) {

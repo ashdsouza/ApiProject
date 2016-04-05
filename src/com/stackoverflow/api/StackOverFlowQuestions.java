@@ -14,8 +14,15 @@ import net.sf.stackwrap4j.query.SearchQuery;
  * This program will search for all the questions with the "quickbooks-api" tag.
  */
 
+/**
+ * StackWrap4j throws JSONException while trying to set api keys --> Known issue and is for V1.0
+ * https://code.google.com/archive/p/stackoverflow-java-sdk/ --> no people to maintain 
+ * Stack-Apps-Java-Library not maintained --> last commit July 2010
+ */
+
 public class StackOverFlowQuestions {
 	
+	//TODO: MOVE TO CONFIG FILE
 	public static String appKey = "XPfk3ExLE7WL*n0L56e5DQ";
 	
 	public void getTopQuestions() throws Exception {
